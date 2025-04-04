@@ -5,7 +5,8 @@ export const authMiddleware = (req, res, next) => {
         if (err || !user) {
             return res.status(401).json({ message: 'No autorizado. Token inválido o no proporcionado.' });
         }
-        req.user = user; // Guardamos el usuario en la request
+        req.user = user;
         next();
     })(req, res, next);
 };
+

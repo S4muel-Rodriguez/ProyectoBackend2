@@ -1,14 +1,12 @@
-import express from 'express';
-import { login, register, current } from '../controllers/sessionsController.js';
+import { Router } from 'express';
 import passport from 'passport';
 import { authMiddleware } from '../middlewares/auth.js';
 
-router.get('/current', authMiddleware, current);
+const router = Router();
 
-const router = express.Router();
-
-router.post('/register', register);
-router.post('/login', login);
-router.get('/current', passport.authenticate('jwt', { session: false }), current);
+router.get('/current', authMiddleware, (req, res) => {
+    res.json({ status: 'success', user: req.user });
+});
 
 export default router;
+
