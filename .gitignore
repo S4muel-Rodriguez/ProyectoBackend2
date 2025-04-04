@@ -1,0 +1,15 @@
+# Node.js
+node_modules/
+package-lock.json
+
+# Logs
+logs/
+*.log
+
+# Variables de entorno
+.env
+
+# Configuración del editor
+.vscode/
+.idea/
+.DS_Store
