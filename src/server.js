@@ -1,17 +1,18 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
 import authRoutes from './routes/auth.routes.js';
 import sessionRouter from './routes/session.routes.js';
+import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config(); // Cargar variables de entorno
+
+console.log('MONGO_URL:', process.env.MONGO_URL); // Verificar URI cargada
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const mongoURI = process.env.MONGO_URL; //mongodb+srv://samurodriguez565:samu@backendii-proyect.bn4x9xw.mongodb.net/?retryWrites=true&w=majority&appName=BackendII-Proyect
 
 // Middleware
 app.use(express.json());
@@ -26,7 +27,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/sessions', sessionRouter);
 
 // Conexión a MongoDB
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('✅ Conectado a MongoDB');
     app.listen(PORT, () => {
