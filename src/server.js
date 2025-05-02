@@ -1,3 +1,4 @@
+
 import express from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
@@ -6,7 +7,6 @@ import initializePassport from './config/passport.config.js';
 import authRoutes from './routes/auth.routes.js';
 import sessionRouter from './routes/session.routes.js';
 import dotenv from 'dotenv';
-
 dotenv.config(); // Cargar variables de entorno
 
 console.log('MONGO_URL:', process.env.MONGO_URL); // Verificar URI cargada
