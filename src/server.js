@@ -6,9 +6,9 @@ import passport from 'passport';
 import initializePassport from './config/passport.config.js';
 import authRoutes from './routes/auth.routes.js';
 import sessionRouter from './routes/session.routes.js';
+import { errorHandler } from "./middlewares/errorHandler.js";
 import dotenv from 'dotenv';
 dotenv.config(); // Cargar variables de entorno
-
 console.log('MONGO_URL:', process.env.MONGO_URL); // Verificar URI cargada
 
 const app = express();

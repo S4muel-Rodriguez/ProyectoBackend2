@@ -1,17 +1,28 @@
-import TicketRepository from '../repositories/ticket.repository.js';
+import TicketDAO from "../daos/ticket.dao.js";
+import ProductDAO from "../daos/product.dao.js";
 
-class TicketService {
-  async createTicket(data) {
-    return TicketRepository.create(data);
+const generateTicket = async (cart, email) => {
+  let totalAmount = 0;
+
+  for (const item of cart.products) {
+    const product = await ProductDAO.getProductById(item.productId);
+
+    if (product.stock < item.quantity) {
+      throw new Error(`No hay suficiente stock para el producto: ${product.name}`);
+    }
+
+    product.stock -= item.quantity;
+    await ProductDAO.updateProduct(product);
+    totalAmount += product.price * item.quantity;
   }
 
-  async getTicketById(ticketId) {
-    return TicketRepository.findById(ticketId);
-  }
+  const ticket = await TicketDAO.createTicket({
+    email,
+    products: cart.products,
+    total: totalAmount,
+  });
 
-  async getAllTickets() {
-    return TicketRepository.findAll();
-  }
-}
+  return ticket;
+};
 
-export default new TicketService();
+export default { generateTicket };
