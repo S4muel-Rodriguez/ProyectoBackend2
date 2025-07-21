@@ -24,7 +24,7 @@ app.use(passport.initialize());
 
 // Rutas
 app.use('/api/auth', authRoutes);
-app.use('/api/sessions', sessionRouter);
+app.use('/api/session', sessionRouter);
 
 // Conexión a MongoDB
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
